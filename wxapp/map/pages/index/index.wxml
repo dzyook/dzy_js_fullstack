@@ -1,3 +1,9 @@
 <view class="container">
-    <map id="ofoMap" longitude="116.404556" latitude="39.914769" scale="16"/>
+    <map id="ofoMap" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}"
+    controls="{{controls}}"
+    />
+    <!-- UI组件 一组标签？ map 是原生html提供不了的
+    html标签在诞生时，展示文档
+    封装起来，用一个新的标签来表示
+    功能及其强大 -->
 </view>
