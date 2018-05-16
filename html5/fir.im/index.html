@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fir.im 中国NO.1 App 测试开发</title>
+    <style>
+        /* css reset 样式重置 
+        让浏览器不受默认样式影响*/
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: yellow;
+    }
+    .plane-wrapper {
+        /* 定位,找到离他最近的position: relative元素定位，直到body */
+        position: absolute;
+        top: 50%;
+        animation: mo 8s linear infinite alternate;
+        animation-direction: alternate;
+        /* keyframes 0% -> 100% 100% -> 0% 8s */
+    }
+    .plane-wrapper .rotate-container {
+        position: absolute;
+        top: 51.7003%;
+        left: 13.1%;
+        width: 27.424%;
+        height: 14.4474%;
+        /* 动作导演 动作剧本*/
+        animation: rotating .2s linear infinite;
+    }
+    .section-1.animation-out .plane-wrapper{
+        /* 加速运动 ease-out */
+        animation: plane-out 1.3s 2s forwards ease-out;
+        /* animation-delay: 3s;
+        animation-fill-mode: forwards; */
+    }
+    @keyframes plane-out{
+        /* 关键帧 */
+        0%{
+            /* 变形: 移动translate scale缩放 rotate旋转 */
+            transform:scale(1) translateX(0);
+        }
+        30%{
+            transform: scale(.8) translateX(160px);
+        }
+        100%{
+            transform: scale(1.2) translateX(-2000px);
+        }
+        
+    }
+    /* 每个动作设计 */
+    @keyframes rotating{
+        0%{
+            /* 变形 */
+            transform: rotate(0) rotateY(-20deg);
+        }
+        50%{
+            transform: rotate(180deg) rotateY(-20deg);
+        }
+        100%{
+            transform: rotate(360deg) rotateY(-20deg);
+        }
+        }
+    @keyframes mo {
+        0%,100%,50%{
+            transform: translate3d(0,0,0);
+        }
+        25%{
+            transform: translate(-6px,-18px,0);
+        }
+        75%{
+            transform: translate3d(6px,10px,0);
+        }
+    }
+    </style>
+</head>
+<body>
+     <!-- 类名套路
+    wrapper 包装
+    container 容器
+    .wrapper > .container > .box
+    html结构
+        着力？
+        1 整体 上下运动 wrapper
+        2 分开运动
+            螺旋桨 rotate
+                container
+            img 定位
+         元素类名关乎结构,业务,状态   
+
+    --> 
+    <div class="section section-1 ready">
+        <div class="plane-wrapper">
+            <img src="http://fir.im/images/plane.svg" alt="" class="plane">
+            <div class="rotate-container">
+                <img src="http://fir.im/images/propeller.svg" alt="" class="propeller">
+
+            </div>
+        </div>
+    </div>
+    <script>
+    window.addEventListener('scroll',function(){
+       document.querySelector('.section-1').classList.add('animation-out')
+    },false);
+    </script>
+</body>
+</html>

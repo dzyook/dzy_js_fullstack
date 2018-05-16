@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>three.js canvas - geometry -earth</title>
+  
+</head>
+<body>
+  <div id="container"></div>
+  <canvas id="webglcanvas"></canvas>
+  <!-- 阻塞html下载 
+  相对路径 
+  cdn相比 
+  静态资源是要放至到专门的静态资源服务器
+  node.js java php 动态程序，后端服务器 -->
+  <script src="./libs/three.min.js"></script>
+  <script src="./libs/stats.min.js"></script>
+  <script>
+  // 舞台Scene
+  // 灯光 Light
+  // 相机 Camera
+  // 元素 mesh
+  // 按帧刷新 requestAnimationFrame 
+  // render canvas
+  const container =
+    document.querySelector('#container');
+  let canvas, stats,
+  camera, scene, renderer, group;
+
+  let mouseX = 0, mouseY = 0; 
+  let windowHalfX = 
+    window.innerWidth / 2;
+  let windowHalfY = 
+    window.innerHeight / 2;
+  // console.log(windowHalfX, windowHalfY);
+  function init() {
+    canvas =
+      document.getElementById('webglcanvas');
+    camera = new THREE.PerspectiveCamera(60, 
+    window.innerWidth/window.innerHeight, 1, 2000);
+    camera.position.z = 500;
+    // 场景
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+    group = new THREE.Group();
+    scene.add(group);
+    // scene<-group<-mesh
+    // 地球的过程
+    const loader = new THREE.TextureLoader();
+    loader.load('land_ocean_ice_cloud_2048.jpg',
+     function(texture) {
+      const geometry = new THREE.SphereGeometry(200, 20, 20);
+      // 烟
+      const material = new THREE.MeshBasicMaterial({
+        map: texture
+      })   
+      const mesh = new THREE.Mesh(geometry, material);
+      group.add(mesh);
+    })
+    renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    stats = new Stats();
+    container.appendChild(stats.dom);
+  }
+  function animate() {
+    requestAnimationFrame(animate);
+    render();
+    stats.update();
+  }
+  function render() {
+    camera.position.x += 
+      ( mouseX - camera.position.x) * 0.05;
+    camera.position.y += 
+      (-mouseY - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
+    group.rotation.y -= 0.005;
+    renderer.render(scene, camera);
+  }
+  window.onload = function() {
+    init();
+    animate();
+    document.addEventListener('mousemove',
+    onDocumentMouseMove, false);
+    window.addEventListener('resize',
+     onWindowResize,false);
+  }
+  
+  function onDocumentMouseMove(event) {
+    // 基于左上角
+    // 鼠标相对于屏幕中心点的编移量 
+    mouseX = event.clientX - windowHalfX; 
+    mouseY = event.clientY - windowHalfY;
+   // console.log(mouseX, mouseY);
+  }
+  function onWindowResize() {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+    //console.log(windowHalfX, windowHalfY);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,
+     window.innerHeight);
+  }
+
+  </script>
+</body>
+</html>
