@@ -1,0 +1,55 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="top">
+    <view class="topimg">
+        <image src="../../images/indextop/1.jpg"></image>
+        <image id="img2" src="../../images/indextop/2.png"/>
+    </view>
+    <view class="agenda">
+        <view class="date">
+            <view class="dateLeft" bindtap="turnleft">
+                <image src="{{showLeft?'../../images/indextop/left.png':'../../images/indextop/left1.png'}}"></image>
+            </view>
+            <scroll-view scroll-x="true" bindscroll="scroll" data-id="move" scroll-into-view="{{toView}}" style="width:400rpx;height: 70rpx;;font-size: 48rpx;" scroll-left="{{scrollLeft}}">
+                    <view class="scroll-x">
+                      <view wx:for-items="{{date}}" wx:key="time">
+                        <view id="{{item.id}}" class="scroll">{{item.time}}</view>
+                      </view>
+                    </view>
+                  </scroll-view>
+            <view class="dateRight" bindtap="turnright">
+                <image src="{{showRight?'../../images/indextop/right.png':'../../images/indextop/right1.png'}}"></image>
+            </view>
+        </view>
+         <!-- wx:for="{{agenda}}" wx:key="{{index}}"  -->
+             <view class="agenda-grade" >
+                <view class="leftteam"><image src="{{agenda.leftteam}}"></image>
+                <text>{{agenda.leftname}}</text>
+                </view>
+                <view class="leftgrade {{light==1?'on':''}}">{{agenda.leftgrade}}</view>
+                <view class="Mid">-</view>
+                <view class="rightgrade {{light==1?'':'on'}}">{{agenda.rightgrade}}</view>
+                <view class="rightteam"><image src="{{agenda.rightteam}}"></image>
+                <text>{{agenda.rightname}}</text>
+                </view>
+            </view> 
+    </view>
+    </view>
+    <view class="content">
+        <view class="content-top"><text>热门新闻</text></view>
+        <scroll-view scroll-y="true">
+            <view class="scroll-y">
+                <view wx:for="{{news}}" wx:key="{{item.contentId}}" class="scroll-list">
+                    <view class="scroll-list-after">
+                    <view class="content-title">
+                        <text>{{item.title}}</text>
+                        <view class="from">
+                        <p>{{item.from}}</p></view>
+                    </view>
+                    <image class="content-img" src="{{item.image}}"></image>
+                    </view>
+                </view>  
+            </view>
+        </scroll-view>
+    </view>
+</view>

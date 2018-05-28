@@ -1,0 +1,14 @@
+/* pages/videos/videos.wxss */.button
+{
+    margin: 20rpx;
+  }
+  .scroll-x {
+    display: flex;
+    flex-direction: row;
+    width:300rpx;
+    white-space: nowrap; 
+  }
+  .scroll-y {
+    display: flex;
+    flex-direction: column; 
+  }
