@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解锁界面</title>
+    <script>
+        // 适配问题 不同的手机1rem 单位是 宽度10分之1
+        // 1rem = html fontsize
+    (function(w){
+        // window 是js 全局 dom document 只是其中一部分
+        // 导航location.href　  navigator lbs 经纬度
+        // 陀螺仪 储存localstorage
+        let s = w.document;
+        // 找到html元素
+        let r = s.documentElement;
+        // 宽度的十分之一
+        let colWidth = r.clientWidth/10;
+        console.log(colWidth);
+        r.style.fontSize = colWidth + 'px';  
+    })(window)
+    </script>
+    <style>
+    html{
+        }
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        border: 0;
+    }
+    .box {
+        border: 0;
+        margin: 0;
+        height: 100vh;
+        -webkit-background: linear-gradient(#B1B5B7, #76C9EC); 
+        -o-background: linear-gradient(#B1B5B7, #76C9EC);
+        -moz-background: linear-gradient(#B1B5B7, #76C9EC);               
+        background: linear-gradient(#B1B5B7, #76C9EC);
+    }
+    .hd{
+        position: relative;
+        width: 10rem;
+        height: 4rem;
+    }
+    .hd input.password{
+        position: absolute;
+        border: 0;
+        width: 2rem;
+        height: 1rem;
+        align-items: center;
+        text-align: center;
+        left: 4rem;
+        top: 1.5rem; 
+    }
+    input::-webkit-input-placeholder{
+    font-size: 16px;
+    opacity:1;
+    }
+    .bd {
+        width: 10rem;
+        height: 8.24rem;
+    }
+    .bd a{
+        width: 1.546667rem;
+        height:1.546667rem;
+        border: 1px solid red;
+        border-radius: 50%;
+
+    }
+    </style>
+</head>
+<body>
+    <div class="box">
+    <div class="hd">
+        <text maxlength="4" type="password" class="password" placeholder="输入密码"></text>
+    </div>
+    <div class="bd">
+        <div class="num"><a href="">1</a></div>
+        <div class="num"><a href="">2</a></div>
+        <div class="num"><a href="">3</a></div>
+        <div class="num"><a href="">4</a></div>
+        <div class="num"><a href="">5</a></div>
+        <div class="num"><a href="">6</a></div>
+        <div class="num"><a href="">7</a></div>
+        <div class="num"><a href="">8</a></div>
+        <div class="num"><a>9</a></div>
+        <div class="last"><a class="last">0</a></div>
+        
+    </div>
+</body>
+</html>

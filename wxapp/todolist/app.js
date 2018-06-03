@@ -5,6 +5,13 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    wx.getStorage({
+      key:'lists',
+      success:(res) =>{
+        this.globalData.lists = res.data;
+        console.log();
+      }
+    })
 
     // 登录
     wx.login({
@@ -34,6 +41,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    lists:null,
   }
 })

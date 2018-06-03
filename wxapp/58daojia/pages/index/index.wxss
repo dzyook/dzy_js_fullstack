@@ -1,0 +1,79 @@
+.container {
+  height: 750rpx;
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+.container .telephone {
+  position: relative;
+  display: flex;
+  width: 636rpx;
+  height: 76rpx;
+  border: 1px solid #7f7f7f;
+  border-radius: 60rpx;
+  text-align: left;
+  font-size: 32rpx;
+  align-items: center;
+}
+.img1 {
+  position: absolute;
+  left:16rpx;
+}
+.container .telephone input {
+  position: absolute;
+  left:68rpx;
+}
+.img2{
+  display: none;
+}
+.img2.show{
+  display: block;
+  position: absolute;
+  left: 560rpx
+}
+image {
+  width: 50rpx;
+  height:46rpx;
+}
+.container .login {
+  width: 636rpx;
+  height: 76rpx;
+  text-align: center;
+  line-height: 76rpx;
+  font-size: 16px;
+  color:#ffffff;
+  background-color: #D5CDCD;
+  border: 1px solid #d5cdcd; 
+  border-radius: 60rpx;
+  margin-top: 50rpx;
+}
+.container .login.show {
+  border: 1px solid #E64449; 
+  background-color: #E64449;
+}
+.content {
+  display: inline-block;
+  margin-top: 22rpx; 
+  font-size: 26rpx;
+  
+}
+.content .text {
+  width: 100%;
+  height: 38rpx;
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.content .text i{
+  border-left: 20rpx;
+  text-align: center;
+  display:-webkit-box; 
+  -webkit-box-orient:horizontal; 
+  -webkit-box-pack:center; 
+  -webkit-box-align:center; 
+  align-items: center;
+  display: inline;
+}
+.content .text i.alerttext{
+  color: #1B16CB;
+}

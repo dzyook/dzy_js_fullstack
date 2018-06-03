@@ -16,7 +16,7 @@ page {
     background-color: #333;
     border-radius: 50%;
     display: inline-block;
-    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 2.4s infinite ease-in-out both;
 }
 
 .spinner .bounce1 {

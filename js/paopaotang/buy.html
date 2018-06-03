@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            /* font-size: 16px!important; */
+            width: 470px;
+            height: 300px;
+            background-color: rgb(131, 128, 128);
+            padding: 0 0 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 红色4库存
+    蓝色6库存
+    var phone = {
+        blue: 6,
+        red: 4
+    }
+    select onchange 事件  数量不写,则提交按钮会禁用(disabled) 先禁用,再启用.
+    红色  当数量为5  oninput事件  onchange    按钮数据不足,   disabled
+    蓝色  当数量为5时   加入购物车. -->
+    <div class="container">
+        </br>
+        <div class="topBar">
+            选择颜色:&nbsp;<select name="" id="sel">
+                <option value="红色">红色</option>
+                <option value="蓝色">蓝色</option>
+            </select>
+            &nbsp;输入购买数量: <input type="text" id="inp"></br> </br> </br> </br> 
+        </div>
+        <div class="show">
+            您选择了颜色:</br> <span id="col"></span>
+            </br></br>您输入了数量: </br> <span id="num"></span></br> 
+        </div>
+        </br>
+        </br>
+        <button disabled  id="btn">加入购物车</button>
+    </div>
+    <script>
+        window.onload = function(){
+            var sel = document.getElementById('sel');
+            col.innerHTML = "red";
+            console.log(sel.value);
+            sel.onchange = function(){
+                console.log(sel.value);
+                var col = document.getElementById('col');                
+                if(sel.value == '红色'){
+                    col.innerHTML = "red";
+                }else{
+                    col.innerHTML = "blue";
+                }                
+            }
+            var inp = document.getElementById('inp');
+            var num = document.getElementById('num');
+            inp.onchange = function(){
+                num.innerHTML = inp.value;
+            }
+            
+        }
+    </script>
+</body>
+</html>

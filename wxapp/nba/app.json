@@ -1,9 +1,13 @@
 {
   "pages": [
+  "pages/index/index",
+  "pages/videos/videos",
+"pages/videoinf/videoinf",
+    "pages/team/team",
     "pages/player/player",
-    "pages/index/index",
-    "pages/videos/videos",
-    "pages/team/team"
+    "pages/news/news",    
+    "pages/playerinf/playerinf",
+    "pages/teaminf/teaminf"
   ],
   "tabBar": {
     "borderStyle": "dark",
@@ -12,31 +16,32 @@
       {
         "pagePath": "pages/index/index",
         "text": "新闻",
-        "iconPath":"images/indextop/xinwen.png",
-        "selectedIconPath":"images/indextop/新闻.png"
+        "iconPath": "images/indextop/xinwen.png",
+        "selectedIconPath": "images/indextop/新闻.png"
       },
       {
         "pagePath": "pages/videos/videos",
         "text": "视频",
-        "iconPath":"images/indextop/视频1.png",
-        "selectedIconPath":"images/indextop/视频.png"
+        "iconPath": "images/indextop/视频1.png",
+        "selectedIconPath": "images/indextop/视频.png"
       },
       {
         "pagePath": "pages/player/player",
         "text": "球员榜",
-        "iconPath":"images/indextop/球员1.png",
-        "selectedIconPath":"images/indextop/球员.png"
+        "iconPath": "images/indextop/球员1.png",
+        "selectedIconPath": "images/indextop/球员.png"
       },
       {
         "pagePath": "pages/team/team",
         "text": "球队排行",
-        "iconPath":"images/indextop/球队.png",
-        "selectedIconPath":"images/indextop/球队1.png"
+        "iconPath": "images/indextop/球队.png",
+        "selectedIconPath": "images/indextop/球队1.png"
       }
     ]
   },
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": true,
     "navigationBarBackgroundColor": "#849DD2",
     "navigationBarTitleText": "NBA资讯",
     "navigationBarTextStyle": "white"

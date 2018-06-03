@@ -1,44 +1,85 @@
-Page({
-  data: {
-    toView: 'yellow',
-    scrollLeft: 0,
-    //滚动的数组
-    date:[
-      { id:'d22',
-        time:"05月22日",
+import {
+  API_BASE
+} from '../../config/api'
+ Page({
+    inputValue: '',
+      data: {
+          videos:[
+        ],
+        currentPage: 1,
+        totalPages: 1,
+        total: 0,
+        hide:false
       },
-      { id:'d23',
-        time:"05月23日",
+      onPullDownRefresh() {
+        // console.log('下拉了');
+        wx.showLoading({
+          title: '玩命加载中',
+        })
+        wx.request({
+          url: API_BASE,
+          success: (res) => {
+            this.setData({
+              videos:res.data.data.videos,
+              currentPage: 1,
+              hide:false
+            })
+            wx.stopPullDownRefresh()
+          }
+        })
+        wx.hideLoading();
       },
-      { id:'d24',
-        time:"05月24日",
+      onLoad: function () {
+        wx.showLoading({
+          title: '玩命加载中',
+        })
+        wx.request({
+          url: API_BASE,
+          success: (res) => {
+            this.setData({
+              videos:res.data.data.videos,
+              currentPage: 1,
+              totalPages: res.data.data.totalPages,
+              total: res.data.data.total
+            })
+          }
+        }, )
+        wx.hideLoading();
       },
-      { id:'d25',
-        time:"05月25日",
+      onShareAppMessage() {
+        return {
+          path: `/pages/index/index`,
+          success: function(res) {
+          },
+          fail: function(res) {
+          }
+        }
       },
-    ],
-  
-  },
-  scrollToRed:function(e)
-  {
-
-    this.setData({
-      toView: 'd25'
-    })
-  },
-  scrollTo100: function (e) {
-    this.setData({
-      scrollLeft: 100
-    })
-  },
-  
-  upper: function (e) {
-    console.log('滚动到顶部')
-  },
-  lower: function (e) {
-    console.log('滚动到底部')
-  },
-  scroll: function (e) {
-    console.log(e)
-  },
-})
+      onReachBottom() {
+        let { currentPage, totalPages } = this.data
+        if (currentPage >= totalPages) {
+          this.setData({
+            hide:true
+          })
+          return;
+        }
+        wx.showLoading({
+          title: '玩命加载中',
+        })
+        currentPage += 1;
+        wx.request({
+          url: API_BASE,
+          success: (res) => {
+            const videos = [
+              ...this.data.videos,
+              ...res.data.data.videos,
+            ];
+            this.setData({
+              videos,
+              currentPage
+            })
+            wx.hideLoading();
+          }
+        })
+      },
+  })

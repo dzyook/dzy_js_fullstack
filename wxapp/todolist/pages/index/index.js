@@ -13,25 +13,34 @@ Page({
     text:'请输入任务',
     inputText:'',
     addText:null,
-    lists: [],
-    curLists:[],
+    curlists:[],
+    lists: [
+    ],
   },
+    onLoad(){
+        if(app.globalData.lists){
+          this.setData({
+            lists:app.globalData.lists,
+          })
+        }
+    },
   // curLists:[],
   showStatus: function(e) {
     // 文字？ 
     const status =
       e.currentTarget.dataset.status
-    // console.log(e, status);
+     console.log(e);
     // 不再是dom编程,针对界面状态的编程
     if(status === '1'){
     this.setData({
       status: status,
-      curLists: this.data.lists
+      lists: this.data.lists
     })
-    }else{
+    }else if(status === '2' ){
+      console.log(this.data.lists.filter(item => +item.status === (status-2)));
       this.setData({
         status: status,
-        curLists: this.data.lists.filter(item => +item.status === (status-2))
+        lists:this.data.lists.filter(item => +item.status === (status-2))
       })
     }
   },
@@ -51,10 +60,14 @@ Page({
     // 数据驱动界面，数据变，界面自动更新
     // MVVM modle(数据模型data) View VM(视图模型层)
     //输入框内容
+    if (!this.data.inputText.trim()) {
+      return;
+    }
     const task = {
       title:this.data.inputText,
       status:'0',
-      date:'刚刚'
+      date:'刚刚',
+      id: new Date().getTime()
     }
     const temp = [...this.data.lists,task];
     this.setData({
@@ -63,7 +76,15 @@ Page({
       inputText:'',
       text:'请输入任务',
     })
-
+    wx.setStorage({
+      key: 'lists',
+      data: temp
+    })
+    wx.showToast({
+      title: '添加成功',
+      icon: 'success',
+      duration: 1000
+    })
   },
   addTodoHide:function(e){
     const show =
@@ -94,6 +115,7 @@ Page({
     // 数据 lists 跟当前条目相关的这一条数据 将status 值为1
     const index = e.currentTarget.dataset.item;
     const temp = this.data.lists;
+    console.log(temp);
     temp.forEach((item,i) => {
       // console.log(item,i);
       if(i == index){

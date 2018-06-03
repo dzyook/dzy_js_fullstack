@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class="cells__title">标题</view>
+<view class="cells cells_after-title">
+  <view class="cell cell_input">
+    <view class="cell__bd">
+      <input type="text" placeholder="标题" value="{{entity.title}}" class="input" bindinput="onInputTitle"/>
+    </view>
+  </view>
+</view>
+<div class="cells__title">正文</div>
+<view class="cells cells_after-title">
+  <view class="cell">
+    <view class="cell_bd">
+      <textarea style="height: 6em;" value="{{entity.content}}" class="textarea" placeholder="正文" bindinput="onInputContent"></textarea>
+    </view>
+  </view>
+</view>
+<view class="btn-area">
+  <button class="btn" type="primary"></button>
+</view>

@@ -14,7 +14,7 @@
   </div>
 </view>
 <scroll-view scroll-y class="lists">
-  <view class="item" wx:for="{{curLists}}" wx:key="index">
+  <view class="item" wx:for="{{lists}}" wx:key="index">
     <div class="content">
       <icon class="icon-small" bindtap="changeTodo" data-item="{{index}}" size="23" type="{{item.status === '1'?'success':'circle'}}"></icon>
       <text class="title">{{item.title}}</text>

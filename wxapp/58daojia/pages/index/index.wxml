@@ -1,0 +1,15 @@
+
+<view class="container">
+  <view class="content">
+  <view class="telephone" >
+    <image class="img1" src="../../image/手机.png"></image>
+    <input type="number" bindinput="clearIcon" focus="{{focus}}" placeholder="请输入手机号" wx:if= maxlength="11" value="{{inputText}}"/>
+    <image class="img2 {{show?'show':''}}" src="../../image/取消.png" bindtap="clearText"></image>
+  </view>
+  <view class="login {{show?'show':''}}" bindtap="loginnum">下一步</view>
+  <view class="text">
+    <i>点击"下一步",即同意,</i>
+    <i class="alerttext" bindtap="alerttxt">《《58到家用户协议》》</i>
+  </view>
+</view>
+</view>

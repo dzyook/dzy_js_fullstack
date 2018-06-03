@@ -1,14 +1,12 @@
-<!--pages/videos/videos.wxml-->
-<view>scroll-view 横向</view>
-
-<button class='button' type='primary' size='mini' bindtap='scrollToRed'>点我滚动到绿色</button>
-
-<button class='button' type='primary' size='mini' bindtap='scrollTo100'>点我滚动100rpx距离</button>
-
-<scroll-view scroll-x="true" bindscroll="scroll" scroll-into-view="{{toView}}" style="width:200rpx;height: 70rpx;background-color: red;font-size: 48rpx; ">
-  <view class="scroll-x">
-    <view wx:for-items="{{date}}" wx:key="time">
-      <view id="{{item.id}}" class="scroll">{{item.time}}</view>
+<view class="section tc">
+        <navigator url="/pages/videoinf/videoinf?id={{item.id}}&url={{item.url}}&title={{item.title}}&num={{item.num}}}}" wx:for="{{videos}}" wx:key="{{item.id}}"  class="bigvideo">
+    <view class="myVideo" style="background-image:url({{item.bgimg}})">
+        <view class="btn"></view>
     </view>
+  <text class="title">{{item.title}}</text>
+  </navigator>
+  </view> 
+  <view class="bottom {{hide?'hide':''}}">
+      <tetx>暂无更多视频了哦</tetx>
   </view>
-</scroll-view>
+  

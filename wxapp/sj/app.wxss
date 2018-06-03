@@ -5,6 +5,7 @@
 @import 'styles/cover.wxss';
 @import 'styles/action.wxss';
 @import 'styles/story.wxss';
+@import 'styles/spec.wxss';
 .section{
   height: 100vh;
 }

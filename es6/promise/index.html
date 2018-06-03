@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise es6 异步当家花旦</title>
+</head>
+<body>
+    <script>
+        // 等到异步A和B发生后，在执行
+        // console.log('C');
+        // 异步 所以Js的执行顺序不再同步
+        // 异步 所以js的执行顺序得不到保证,
+        // A -> B -> C
+        // 对未来会发生的事
+        // 将要发生很久的事情，交给Promise吧
+        // 解决 reject 拒绝
+        // 复杂任务的调度
+        const p = new Promise((resolve,reject) =>{
+            console.log('A');
+            setTimeout(() =>{
+                // 数据存储 mysql ,读取文件, 定时任务
+                // resolve()
+                reject('失败的原因');
+            },10000)
+        });
+        // 代码执行顺序在手
+        p.then((res)=>{
+            console.log(res)
+        }).catch(e =>{
+            console.log(e);
+        })
+        // 两件异步事，发生不确定的时间 Promise
+        const postsPromise = fetch('https://wesbos.com/wp-json/wp/v2/posts');
+        const streetCarsPromise = fetch('http://data.ratp.fr/api/datasets/1.0/search/?q=par');
+        // 强制代码的执行顺序，同步执行
+        // js 不会为异步停留
+        // 最晚的那个执行完，A,B 结果,再执行C
+        // console.log('c');
+        Promise
+        .all([streetCarsPromise])
+        .then(responses=>{
+           return Promise.all(responses.map(
+               res => res.json()
+           ))
+        })
+        .then(responses => {
+            console.log(responses);
+        })
+    </script>
+</body>
+</html>

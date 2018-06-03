@@ -1,0 +1,9 @@
+<!--pages/my/my.wxml-->
+<view class="main">
+        <view class="header">
+            <!-- 头像  -->
+            <open-data class="thumb" type="userAvatarUrl"></open-data>
+            <open-data class="nackname" lang="zh_CN" type="userNickName"></open-data>
+            <text class="about">关于我们</text>
+        </view>
+    </view>

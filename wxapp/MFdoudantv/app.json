@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": { 
+    "navigationBarBackgroundColor": "#2DC799",
+    "navigationBarTitleText": "模仿狗蛋TV升级版",
+    "navigationBarTextStyle": "white",
+     "backgroundTextStyle":"dark"
+  }
+}

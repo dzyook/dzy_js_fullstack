@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>摇一摇</title>
+    <script>
+            // 所有css之前，我们先来决定htmlfont-size应该为 1rem=设备宽度/10
+            // 适配问题 不同的手机1rem 单位是 宽度10分之1
+            // 1rem = html fontsize
+            (function (w) {
+                // window 是js 全局 dom document 只是其中一部分
+                // 导航location.href　  navigator lbs 经纬度
+                // 陀螺仪 储存localstorage
+                let s = w.document;
+                // 找到html元素
+                let r = s.documentElement;
+                // 宽度的十分之一
+                let colWidth = r.clientWidth / 10; /*面试常考*/
+                console.log(colWidth);
+                r.style.fontSize = colWidth + 'px';
+            })(window)
+            var SHAKE_THRESHOLD = 3000;  
+        var last_update = 0;  
+        var x = y = z = last_x = last_y = last_z = 0;  
+        function init() {  
+            if (window.DeviceMotionEvent) {  
+                window.addEventListener('devicemotion', deviceMotionHandler, false);  
+            } else {  
+                alert('not support mobile event');  
+            }  
+        }  
+        function deviceMotionHandler(eventData) {  
+            var acceleration = eventData.accelerationIncludingGravity;  
+            var curTime = new Date().getTime();  
+            if ((curTime - last_update) > 100) {  
+                var diffTime = curTime - last_update;  
+                last_update = curTime;  
+                x = acceleration.x;  
+                y = acceleration.y;  
+                z = acceleration.z;  
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;  
+  
+                if (speed > SHAKE_THRESHOLD) {
+                     var obj =document.getElementById("loading");
+                    //   var show = document.getElementById("people");
+                      obj.style.visibility="hidden"
+                    var bd = setTimeout(function(){
+                      obj.style.visibility="visible"
+                    },2000)4
+                    // // window.clearTimeout(bd);
+                    // var hd = setTimeout(function(){
+                    //     bd.setTimeout;
+                    //     show.style.display="block";  
+                    // },2000)
+                    // // window.clearTimeout(hd);
+                    
+                   
+                    
+                    media.setAttribute("src", "http://211.148.5.228:8002/Pages/test/Kalimba.mp3");  
+                    media.load();  
+                    media.play();    
+                }  
+                last_x = x;  
+                last_y = y;  
+                last_z = z;  
+            }  
+        }  
+        </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .box{
+            width: 10rem;
+            height: 100vh;
+            background-color: rgb(82, 78, 78);
+        }
+        .hand{
+            padding-top: 1.5rem;
+            width: 10rem;
+            text-align: center;
+        }
+        .hand img{
+            transform:mymove 1s alternate infinite;
+            -webkit-animation: mymove 1s alternate infinite;
+        }
+        @keyframes mymove{
+            0%{
+               transform:  rotate(-20deg);
+            }
+            100%{
+                transform: rotate(0);
+            }
+        }
+        #loading{
+            visibility:hidden;
+            padding-top: 1rem;
+            text-align: center;
+            width: 10rem;
+        }
+        #loading img {
+            transform: load .5s linear 4;
+            -webkit-animation:  load .5s linear 4;
+            height: 2rem;
+        }
+        @keyframes load{
+            0%{
+                transform: rotate(0);
+            }
+
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+        #people {
+            display: none;
+            width: 10rem;
+        }
+        #ft {
+            display: flex;
+            margin-left: 1rem;
+            width: 8rem;
+            height: 2rem;
+            transform: myshow 1s linear 1; 
+            -webkit-animation: myshow 1s linear 1;
+        }
+        @keyframes myshow{
+            0%{
+                transform:translateY(-1.5rem);
+            }
+            100%{
+                transform:translateY(0);
+            }
+        }
+        #people img{
+            margin: 0.25rem;
+            text-align: center;
+            height: 1.5rem;
+            border: 1px solid #fff;
+        }
+        #ft #text{
+            padding-top: 0.25rem;
+            height: 1.5rem;
+            font-size:.5rem;
+            color: #fff;
+            
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div class="box">
+        <div class="hand"><image src="../../img/hand.png"></image></div>
+        <div id="loading"><image src="../../img/spinner.png"></image></div>
+        <div id="people">
+            <div id="ft">
+            <img src="../../img/9.png">
+            <div id="text"> 
+            <text>摇晃结果</text>
+            <p>恭喜你摇到了本大帅哥。</p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <audio style="display:hiden" id="musicBox" preload="metadata" controls src="http://211.148.5.228:8002/Pages/test/Kalimba.mp3" autoplay="false"></audio>
+</body>
+</html>
