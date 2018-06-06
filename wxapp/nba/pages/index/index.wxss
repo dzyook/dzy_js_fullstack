@@ -143,8 +143,8 @@ swiper {
   right: 0;
   bottom: 0;
   height: 1rpx;
-  color: #7C7F86;
-  border-top:1px solid #7C7F86;
+  color: #272C37;
+  border-top:1px solid #272C37;
   left:30rpx;
 }
 .scroll-list::after {
@@ -154,8 +154,8 @@ swiper {
   right: 0;
   bottom: 0;
   height: 1rpx;
-  color: #7C7F86;
-  border-top:1px solid #7C7F86;
+  color: #272C37;
+  border-top:1px solid #272C37;
 }
 .content-title p{
   flex: 1;

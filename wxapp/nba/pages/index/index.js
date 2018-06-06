@@ -18,6 +18,7 @@ Page({
     total: 0,
     light: 2,
     index: 1,
+    num:1,
     agenda: {
     },
     date: [],
@@ -118,9 +119,6 @@ Page({
       title: '玩命加载中',
     })
     currentPage += 1;
-    this.setData({
-      isLoading: true
-    })
     wx.request({
       url: API_BASE,
       success: (res) => {
@@ -136,69 +134,78 @@ Page({
       }
     })
   },
+  changeleft:function() {
+    const index = this.data.index - this.data.num;
+    this.setData({
+      agenda: this.data.result[index],
+      light: this.data.result[index].leftgrade > this.data.result[index].rightgrade ? '1' : '2',
+      index: index,
+      current:index,
+      showLeft: true,
+    })
+  },
+  changeright:function(){
+    const index = this.data.index + this.data.num;
+    this.setData({
+      agenda: this.data.result[index],
+      index: index,
+      current:index,
+      light: this.data.result[index].leftgrade > this.data.result[index].rightgrade ? '1' : '2',
+      showRight: true,
+    })
+  },
   turnleft: function (e) {
-    const index = this.data.index - 1;
-    let that = this;
-    setTimeout(function () {
+    const index = this.data.index -this.data.num;
       if (index <= -1) {
         return;
       } else if (index == 0) {
-        that.setData({
-          showLeft: true,
-          agenda: that.data.result[index],
-          light: that.data.result[index].leftgrade > that.data.result[index].rightgrade ? '1' : '2',
-          index: index,
-          current:index,
-        })
+        this.changeleft();
       } else {
-        that.setData({
-          agenda: that.data.result[index],
-          index: index,
-          current:index,
-          light: that.data.result[index].leftgrade > that.data.result[index].rightgrade ? '1' : '2',
+        this.changeleft();
+        this.setData({
           showLeft: false,
           showRight: false,
         })
       }
-    }, 100)
   },
   turnright: function (e) {
-    const index = this.data.index + 1;
-    let that = this;
-    setTimeout(function () {
-      if (index >= 4) {
+    const index = this.data.index + this.data.num;
+      if (index >= this.data.date.length) {
         return;
-      } else if (index == 3) {
-        that.setData({
-          agenda: that.data.result[index],
-          index: index,
-          current:index,
-          light: that.data.result[index].leftgrade > that.data.result[index].rightgrade ? '1' : '2',
-          showRight: true,
-        })
+      } else if (index == this.data.date.length-1) {
+          this.changeright();
       }
       else {
-        that.setData({
-          agenda: that.data.result[index],
-          current:index,
-          index: index,
+        this.changeright();
+        this.setData({
           showRight: false,
           showLeft: false,
-          light: that.data.result[index].leftgrade > that.data.result[index].rightgrade ? '1' : '2',
         })
       }
-    }, 100)
   },
   swiperchange:function(e) {
     const current = e.detail.current;
-    const ind = this.data.index+1;
-    const dex = this.data.index-1;
-    console.log(current);
-    if(current == ind){
+    const ind = this.data.index;
+    const dex = current - ind;
+      if(current-ind >0){
+        this.setData({
+          num:dex
+        })
       this.turnright()
-    }else if(dex == current){
+      this.setData({
+        num:1
+      })
+    }else if(current - ind <0){
+      this.setData({
+        num:-dex
+      })
      this.turnleft()
+     this.setData({
+       num:1
+     })
     }
+   
+    console.log(current);
   },
   onShareAppMessage() {
     return {
