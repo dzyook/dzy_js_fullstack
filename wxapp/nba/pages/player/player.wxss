@@ -28,8 +28,8 @@ page,.container {
     right: 0;
     bottom: 0;
     height: 1rpx;
-    color: #7C7F86;
-    border-bottom:1px solid #7C7F86;
+    color: #272C37;
+    border-bottom:1px solid #272C37;
   }
 .scroll-y {
     color: #7C7F86;
@@ -102,8 +102,8 @@ page,.container {
     right: 0;
     bottom: 0;
     height: 1rpx;
-    color: #7C7F86;
-    border-top:1px solid #7C7F86;
+    color: #272C37;
+    border-top:1px solid #272C37;
   }
 .more {
     position: relative;
