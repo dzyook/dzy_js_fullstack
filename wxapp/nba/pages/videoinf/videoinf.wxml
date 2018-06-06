@@ -1,7 +1,7 @@
 <!--pages/videoinf/videoinf.wxml-->
 <view class="container">
     <view class="topvideo">
-        <video id="myVideo" src="{{video.url}}" controls ></video>
+        <video id="myVideo" src="{{video.url}}" controls autoplay></video>
         <view class="title">{{video.title}}</view>
     </view>
     <view class="content">

@@ -89,4 +89,5 @@ video {
     height: 50rpx;
     background-size:45rpx;
     background-image:url(http://i.gtimg.cn/qqlive/images/20150911/i1441959133_1.jpg);
+    background-repeat: no-repeat; 
   }
