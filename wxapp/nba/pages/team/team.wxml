@@ -18,7 +18,7 @@
     </view>
     <scroll-view  scroll-y="true">
         <view  class="scroll-y">
-            <navigator url="/pages/teaminf/teaminf?id={{item.Id}}" wx:for="{{westteam}}"
+            <view wx:for="{{westteam}}"
               wx:key="{{item.id}}"
                 class="scroll-list">
                 <view class="scroll-list-after">
@@ -34,7 +34,7 @@
                     <text id="score" class="winrate">{{item.winrate}}</text>
                     <text id="score">{{item.score}}</text>
                 </view>
-            </navigator>
+            </view>
         </view>
     </scroll-view></block>
     <block wx:if="{{click==2}}">
@@ -47,7 +47,7 @@
                 </view>
     <scroll-view    scroll-y="true">
         <view class="scroll-y">
-            <navigator url="/pages/teaminf/teaminf?id={{item.Id}}" wx:for="{{eastteam}}"
+            <view url="/pages/teaminf/teaminf?id={{item.Id}}" wx:for="{{eastteam}}"
               wx:key="{{item.id}}"
                 class="scroll-list">
                 <view class="scroll-list-after">
@@ -63,7 +63,7 @@
                     <text id="score" class="winrate">{{item.winrate}}</text>
                     <text id="score">{{item.score}}</text>
                 </view>
-            </navigator>
+            </view>
         </view>
     </scroll-view></block>
     <block wx:if="{{click==3}}">
@@ -73,7 +73,7 @@
                 </view>
                 <scroll-view scroll-y="true">
                     <view class="scroll-y">
-                        <navigator url="/pages/teaminf/teaminf?id={{item.id}}" wx:for="{{team1}}" wx:if="{{index<playernum}}" wx:key="{{item.id}}" class="scroll-list">    
+                        <view url="/pages/teaminf/teaminf?id={{item.id}}" wx:for="{{team1}}" wx:if="{{index<playernum}}" wx:key="{{item.id}}" class="scroll-list">    
                             <view class="scroll-list-after">
                             <text id="num">{{item.num}}</text>
                             <view class="content-title">
@@ -83,7 +83,7 @@
                             </view>
                             <text id="score" class="lastscore">{{item.score}}</text>
                             </view>
-                        </navigator>
+                        </view>
                         <view class="more" bindtap="showmore">
                                 <text>{{canshow?'完整得分榜∨':'收起∧'}}</text>
                             </view>
@@ -96,7 +96,7 @@
                         </view>
                     <scroll-view scroll-y="true">
                             <view class="scroll-y">
-                                <navigator url="/pages/teaminf/teaminf?id={{item.id}}" wx:for="{{team1}}" wx:if="{{index<playernum2}}" wx:key="{{item.id}}" class="scroll-list">    
+                                <view wx:for="{{team1}}" wx:if="{{index<playernum2}}" wx:key="{{item.id}}" class="scroll-list">    
                                     <view class="scroll-list-after">
                                     <text id="num">{{item.num}}</text>
                                     <view class="content-title">
@@ -106,7 +106,7 @@
                                     </view>
                                     <text id="score" class="lastscore">{{item.score}}</text>
                                     </view>
-                                </navigator>
+                                </view>
                                 <view class="more" bindtap="showmore2">
                                         <text>{{canshow2?'完整失分榜∨':'收起∧'}}</text>
                                     </view>

@@ -67,8 +67,8 @@ page{
     color: #fff;
 }
 .scroll-y {
-    border-top: 1px solid #7c7f86;
-    color: #7C7F86;
+    border-top: 1px solid #272C37;
+    color: #272C37;
     background-color: #191E2A;
 }
 .scoll-list {
@@ -138,8 +138,8 @@ page{
     right: 0;
     bottom: 0;
     height: 1rpx;
-    color: #7C7F86;
-    border-top:1px solid #7C7F86;
+    color: #272C37;
+    border-top:1px solid #272C37;
   }
 .top-title-score {
     margin-left: 330rpx;
