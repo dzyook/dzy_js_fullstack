@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .bigbox {
+            width: 300px;
+            background: #f7f7f7;
+            height: 285px;
+            float: right;
+            padding: 20px;
+            border-top: 3px solid #4284d9;
+            position: relative;
+        }
+        .bigbox h3{
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 32px;
+            margin: 0;
+            font-family: inherit;
+            color: #333;
+        }
+        .bigbox .audiobox {
+            position: relative;
+            padding: 20px 0 20px 75px;
+            height: 100px;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        div {
+            display: block;
+        }
+        .leftimage {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 60px;
+            height: 60px;
+        }
+        .leftimage .img {
+            display: block;
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .leftimage .img .pause {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            left: 0;
+            top: 0;
+            background:url("//image.bitautoimg.com/2016/pc1200/img/voice-play.png") center center no-repeat;
+            background-color: rgba(0, 0, 0, .3);
+            z-index: 1;
+            cursor: pointer;
+        }
+        i {
+            font-style: normal;
+        }
+        .audiobox h5 {
+            margin-bottom: 10px;
+            padding-top: 5px;
+            font-weight: bold;
+        }
+        h5 {
+            font-size: 18px;
+            line-height: 24px;
+            margin: 0;
+            font-family: inherit;
+            color: #333;
+            font-weight: normal;
+        }
+        .audiobox>h5>em {
+            color: #999;
+            font-size: 14px;
+            padding-left: 10px;
+            font-weight: normal;
+            font-style: normal;
+        }
+        .audiobox>.indicator {
+            position: relative;
+            width: 100px;
+            height: 5px;
+            background: #e1e1e1;
+            border-radius: 8px;
+            font-size: 0;
+            line-height: 0;
+        }
+        .indicator>.data {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 5px;
+            border-radius: 8px;
+            background-color: #4284d9;
+        }
+        .indicator>.time {
+            position: absolute;
+            right: -45px;
+            top: -6px;
+            font-size: 12px;
+            color: #999999;
+            line-height: 16px;
+        }
+        .indicator .currenttime {
+            display: none;
+        }
+        .indicator .alltime {
+            display: inline;
+        }
+        .indicator>.note {
+            position: absolute;
+            width: 12px;
+            height: 11px;
+            right: -70px;
+            top: -2px;
+            background: url("//image.bitautoimg.com/2016/pc1200/chexingye/note1.png");
+        }
+        .notebox {
+            position: relative;
+            cursor: pointer;
+        }
+        .note .popup {
+            right: -24px;
+            left: auto;
+            width: 220px;
+            min-width: 0;
+            font-size: 12px;
+            line-height: 18px;
+            z-index: 2;
+        }
+        .popup {
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 30px;
+            min-width: 240px;
+            max-width: 400px;
+            margin-bottom: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+            background-color: #fff;
+            z-index: 1;
+            cursor: initial;
+            white-space: normal;
+            line-height: normal;
+        }
+        *::before,*::after {
+            box-sizing: border-box;
+        }
+        .note .popup::before {
+            left: auto;
+            right: 18px;
+        }
+        .popup::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top:-20px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom-color: #ccc;
+        }
+        .note .popup:after {
+            left: auto;
+            right: 20px;
+        }
+        .popup::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top:-16px;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-bottom-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="bigbox" id="audio_list">
+        <h3>语音说车</h3>
+        <div class="audiobox" id="aduio1">
+            <a href="#" class="leftimage" onclick="show()">
+                <span class="img">
+                    <img src="http://image.bitautoimg.com/Audio/2016/5/23/2016523162224169.jpg" alt="" width="60" height="60">
+                    <audio  id="audionum1" src="http://audio.bitautoimg.com/2016/05/24/228c3015-5b4c-428b-874b-4b29b5e57dfd.mp3" preload="none" loop="true"></audio>
+                    <i id="pa" class="pause"></i>
+                </span>
+            </a>
+            <h5>
+                崔珺
+                <em>车主之友主编</em>
+            </h5>
+            <div class="indicator">
+                <sapn class="data" id="da" style="width:0;"></sapn>
+                <span class="time currenttime">00.00</span>
+                <span class="time alltime">00.39</span>
+                <span class="note notebox" onmouseover="mouseOver()" onmouseout="mouseOut()">
+                    <div id="pp" class="popup">
+                        <p>新奔驰C级的外观确实让人满意，时尚中透出儒雅，内饰一如既往的富有品质感。曾经一直被诟病的后排空间，在这一代车型上得到了根本的改善。                            </p>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <div class="audiobox" id="aduio2">
+                <a href="#" class="leftimage" onclick="show()">
+                        <span class="img">
+                            <img src="http://image.bitautoimg.com/Audio/2016/5/23/2016523162224169.jpg" alt="" width="60" height="60">
+                            <audio  id="audionum1" src="http://audio.bitautoimg.com/2016/05/24/228c3015-5b4c-428b-874b-4b29b5e57dfd.mp3" preload="none" loop="true"></audio>
+                            <i id="pa" class="pause"></i>
+                        </span>
+                    </a>
+                    <h5>
+                        崔珺
+                        <em>车主之友主编</em>
+                    </h5>
+                    <div class="indicator">
+                        <sapn class="data" id="da" style="width:0;"></sapn>
+                        <span class="time currenttime">00.00</span>
+                        <span class="time alltime">00.39</span>
+                        <span class="note notebox" onmouseover="mouseOver()" onmouseout="mouseOut()">
+                            <div id="pp" class="popup">
+                                <p>新奔驰C级的外观确实让人满意，时尚中透出儒雅，内饰一如既往的富有品质感。曾经一直被诟病的后排空间，在这一代车型上得到了根本的改善。                            </p>
+                            </div>
+                        </span>
+                    </div>
+        </div>
+    </div>
+<script>
+     var statu = true;
+    function show(){
+        var audio = document.getElementById('audionum1');
+        var pause = document.getElementById('pa');
+        var da = document.getElementById('da');
+        var currenttime = document.getElementsByClassName('currenttime');
+        var alltime = document.getElementsByClassName('alltime');
+        if(statu){
+             audio.play();
+             pause.style.backgroundImage="url(//image.bitautoimg.com/2016/pc1200/img/voice-pause.png)"
+             pause.style.overflow="hidden";
+            currenttime[0].style.display = "inline";
+            alltime[0].style.display = "none";
+             statu = false;
+             var ii = setInterval(function(){
+                 cur = audio.currentTime;
+                //  console.log(cur);
+                 da.style.width=""+(cur/39)*100+"%";   
+             },100) 
+             var oo = setInterval(function(){
+                 rrr = parseInt(audio.currentTime);
+                 var temp = rrr;
+                 minute = parseInt(temp/60); 
+                if(cur%60<10){
+                    currenttime[0].innerHTML="0"+minute+":0"+rrr%60+""
+                }else{
+                    currenttime[0].innerHTML="0"+minute+":"+rrr%60+""
+                }
+             },1000)
+        }else {
+            window.clearInterval(ii);
+            window.clearInterval(oo);
+            audio.pause();
+            currenttime[0].style.display = "none";
+            alltime[0].style.display = "block";
+            pause.style.backgroundImage="url(//image.bitautoimg.com/2016/pc1200/img/voice-play.png)"
+            statu=true;
+        }
+        }
+        function mouseOver(){
+            var x = document.getElementsByClassName('popup');
+            x[0].style.visibility="visible";
+        }
+        function mouseOut(){
+            var x = document.getElementsByClassName('popup');
+            x[0].style.visibility="hidden";
+        }
+</script>
+</body>
+</html>
