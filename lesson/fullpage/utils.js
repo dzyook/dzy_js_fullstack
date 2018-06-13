@@ -20,7 +20,27 @@ const utils = {
                 },delay)
             }  
         }
-            }
+            },
+    debounce(method,context,event,delay) {
+        // window.resize 等一下再执行
+        // 定时器保持他的名字
+        // js 动态语言,
+        clearTimeout(context.tId);
+       context.tId = setTimeout(()=>{
+        method.call(context,event);
+        },delay)
+    },
+    getWheelDelta(event){
+        console.log(event);
+        
+        if(event.wheelDelta){
+            this.getWheelDelta = event => event.wheelDelta;
+            return event.wheelDelta;
+        }
+        //chrome
+        // this.getWheelDelta = event => -event.detail;
+        // return -event.detail;
+    }
         
            
 }
