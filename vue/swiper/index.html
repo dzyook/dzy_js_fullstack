@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script>
+    // 页面? html,DOM -> jQuery 对原生的api进行封装
+    // 组件式开发 不做DOM 数据绑定 data -> template compile
+    // ? el components template 用自定义标签方式 mount挂载
+    // vue 用MVVM 思维接管一切
+    new Vue({
+  el: '#root',
+  template: `
+    <ul class="r-swiper-out">
+      <li class="r-swiper-out-item" :style="itemStyle">
+        <div class="r-swiper-out-item-content"
+        @touchstart="touchstart"
+        @touchmove="touchmove"
+        @touchend="touchend"
+        >
+          分手的我们没有起到一起
+        </div>
+        <div class="r-swiper-out-item-btns" ref="btns">
+          <div class="r-swiper-out-item-btn">
+          删除
+          </div>
+        </div>
+      </li>  
+    </ul>
+  `,
+  data: {
+    translateX: 0,
+    speed: 0,
+    oldPoint: null,
+    startX: 0,
+    btnsWidth: 0
+  },
+  computed: {
+    itemStyle () {
+      return {
+        transform: `translate3d(${this.translateX}px, 0, 0)`,
+        transition: `all ${this.speed}s`,
+        // -moz-transition: `all ${this.speed}s`,
+        // -webkit-transition: `all ${this.speed}s`,
+        // -o-transition: `all ${this.speed}s`,
+      }
+    }
+  },
+  methods: {
+    touchstart (e) {
+      this.oldPoint = e.touches[0];
+      this.speed = 1;
+      this.startX = this.translateX;
+    },
+    touchmove (e) {
+      let moveX = e.touches[0].pageX - this.oldPoint.pageX;
+      let moveY = e.touches[0].pageY - this.oldPoint.pageY;
+      // 左滑 负值 右滑 正值 
+      if (Math.abs(moveX) < Math.abs(moveY) || Math.abs(moveX) < 20 || Math.abs(moveY) > 30)
+      return;
+      e.preventDefault();
+      // startX 会存着translateX
+      moveX = this.startX * 1 + moveX * 1;
+      console.log(moveX)
+      if (moveX < -this.btnsWidth) {
+        moveX = -this.btnsWidth
+      } else{
+        moveX = 0
+      }
+      this.translateX = moveX;
+    },
+    touchend (e) {
+        let moveX = -this.translateX > 30 ? -this.btnsWidth:0;   
+        this.speed = 1;
+        this.transitionX = moveX;
+    }
+  },
+  // 生命周期 css? ele.offsetWidth? 挂载到页面上
+  // el template 
+//   new Vue
+  created () {
+    // console.log(this.$refs.btns.offsetWidth)
+  },
+//   挂载
+  mounted () {
+      this.btnsWidth = this.$refs.btns.offsetWidth;
+    // console.log(this.btnsWidth)
+  }
+})
+</script>
+</body>
+</html>
