@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <div class="user-box">
+        <p class="username"></p>
+        <p class="desc"></p>
+    </div>
+    <script>
+    // xhr xhr
+    // js 主动请求数据的过程
+    // ajax 是js 具有web2.0 动态请求页面的能力。
+    let xhr = null;
+    // js 主动发出一次http请求request,支持的数据交换格式xml
+    if(window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    }else {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    // false true 异步
+    xhr.open('get','/user.json',true);
+    xhr.send();
+    // 一旦发送之后,状态就会发生改变
+    xhr.onreadystatechange = function(){
+        // 200 http 状态码, 成功响应
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const zll = JSON.parse(xhr.responseText);
+            console.log(zll.name)
+        }
+    }
+    // fetch('/user.json')
+    //     .then(data => data.json()).then(data => {
+    //         console.log(data);
+    //     })
+
+    // $(function(){
+    //     $.ajax({
+    //         type:"GET",
+    //         url:"./user.json",
+    //         dataType:"json",
+    //         success:function(data){
+    //             console.log(data)
+    //         }
+    //     })
+    // })
+
+    // $(function(){
+    // $.getJSON("/user.json",function(data){
+    // //    console.log(data)
+    //    $('.username').html(data.name)
+    //    $('.desc').html(data.desc)
+    // });
+    // });
+    </script>
+   
+</body>
+</html>
