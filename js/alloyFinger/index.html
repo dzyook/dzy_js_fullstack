@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <div class="box"></div>
+    <script src="http://alloyteam.github.io/AlloyFinger/alloy_finger.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.min.js"></script>
+    <script>
+        const oBox = document.querySelector('.box');
+        const startPoint = {x:0,y:0};
+        const DIRECT_VAL = 30; 
+        // new AlloyFinger(oBox,{
+        //     swipe:function(evt){
+        //         console.log(evt.direction);
+        //     }
+        // })
+        oBox.addEventListener('touchstart',(start)=>{
+            console.log(start.touches[0].clientX);
+            startPoint.x = start.touches[0].clientX;
+            startPoint.y = start.touches[0].clientY;
+        },false);
+        const utils = {
+            throttle(method,context,delay) {
+                let wait = false;
+                return function(...args){
+                    if(!wait){
+                        method.call(context,args);
+                        wait = true;
+                        setTimeout(()=>{
+                            wait = false
+                        },delay)
+                    }}}
+        }
+        //偏移量
+        function touchmove(move){
+            // console.log(move.touches[0].clientX);
+            if(move[0].touches[0].clientX - startPoint.x > DIRECT_VAL){
+                console.log('rgiht');
+                return;
+            }
+            if(move[0].touches[0].clientX - startPoint.x < -DIRECT_VAL){
+                console.log('left');
+                return;
+            }
+        }
+        const handleMouseWheel = utils.throttle(this.touchmove,this,1000); 
+        document.addEventListener('touchmove',handleMouseWheel,false);
+        // const touchmove = (move) =>{
+        //         if (move.touches[0].clientX - startPoint.x > DIRECT_VAL) {
+        //             console.log('rgiht');
+        //             return;
+        //         }
+        //         if (move.touches[0].clientX - startPoint.x < -DIRECT_VAL) {
+        //             console.log('left');
+        //             return;
+        //         }
+        //     }
+        // oBox.addEventListener('touchmove', _.throttle(touchmove, 1000))
+          
+      
+    </script>
+</body>
+
+</html>
