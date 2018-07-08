@@ -3,20 +3,20 @@
         <div class="top">
             <span>{{footname}}</span> ＞
         </div>
-        <div class="middle">
-            <div class="mid-six" v-for="(item,i) of footimg" :key="i">
+        <div url="/pages/order/main" class="middle">
+            <a :href="'/pages/songlist/main?id='+item.id+'&playCount='+item.playCount+'&singer='+item.singer+'&vip='+item.vip" class="mid-six" v-for="item of footimg" :key="item.id">
                 <div class="six">
-                   <image class="six-img" :src="item.url" alt="#"/>
+                   <image class="six-img" :src="item.picUrl" alt="#"/>
                    <div v-if="item.vip" class="vip">付费精品</div>
-                   <div v-if="item.num" class="number">
+                   <div v-if="item.playCount" class="number">
                     <image class="smallimg" src="/static/images/index/erji.png"/>
-                    <div class="small-text">{{item.num}}</div>
+                    <div class="small-text">{{item.playCount}}万</div>
                    </div> 
                 </div>
                 <span class="six-text" v-if="item.text">{{item.text}}</span>
                 <span class="six-name" v-if="item.name">{{item.name}}</span>
                 <span class="six-text small" v-if="item.singer">{{item.singer}}</span>
-            </div>
+            </a>
         </div>
     </div>
 </template>
@@ -27,13 +27,13 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .foot-top
  width 100%
  height 795rpx
  position relative
  background #ffffff
- top 553rpx
+ top 550rpx
  .top
   padding-left 16rpx
   padding-top 20rpx  
