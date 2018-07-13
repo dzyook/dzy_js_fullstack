@@ -78,7 +78,6 @@ export default {
 
   created() {
     // 调用应用实例的方法获取全局数据
-  //  this._getRecommendList()
    this.getList()
   }
 };
