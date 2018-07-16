@@ -10,14 +10,14 @@
             
             <div class="bigfoot">
                 <div class="bigtiao">
-                <p>{{notime}}</p>
-                <div class="tiao">
+                <p class="notime">{{notime}}</p>
+                <div class="tiao" ref="tiaobar" @click="clClick">
                     <div class="tiaotop" :style="width"></div>
-                    <div class="cl" :style="midwidth">
+                    <div class="cl" :style="midwidth" @touchstart="clstart" @touchmove="clmove" @touchend="clend">
                         <div class="cl-mid" ></div>
                     </div>
                 </div>
-                <p>{{alltime}}</p>
+                <p class="alltime">{{alltime}}</p>
             </div>
             <div class="foot">
                 <div class="one">
@@ -43,6 +43,7 @@
 <script>
 import fly from '@/utils/flyio';
 import circle from '@/components/circle/circle';
+import Flyic from 'lyric-parser'
 export default {
     data(){
         return {
@@ -56,22 +57,29 @@ export default {
             height: 0,
             midimg3: [],
             nowmiao: 0,
+            offsetWidth: 0,
+            touch: {
+                time: 0,
+                initiated: true,
+                startX: 0,
+                setWidth: 0
+            }
         }
     },
     computed:{
         width () {
-            return 'width:'+(this.nowmiao/this.allmiao)*100+'%'
+            return 'width:'+(this.nowmiao/this.allmiao)*550+'rpx'
         },
         midwidth() {
-            return 'transform:translate3d('+(this.nowmiao/this.allmiao)*250+'px,0px,0px);'
+            return 'transform:translate3d('+(this.nowmiao/this.allmiao)*529+'rpx,0px,0px);'
         },
         notime () {
             if(Math.round(this.nowmiao % 60) < 10) return '0'+Math.floor(this.nowmiao/60)+':0'+Math.round(this.nowmiao%60)
-          else  return '0'+Math.floor(this.nowmiao/60)+':'+Math.floor(this.nowmiao%60)
+          else  return '0'+Math.floor(this.nowmiao/60)+':'+Math.round(this.nowmiao%60)
         },
         alltime () {
-          if(Math.round(this.allmiao % 60) < 10) return '0'+Math.floor(this.allmiao/60)+':0'+Math.floor(this.allmiao%60)
-          else  return '0'+Math.floor(this.allmiao/60)+':'+Math.floor(this.allmiao%60)
+          if(Math.round(this.allmiao % 60) < 10) return '0'+Math.floor(this.allmiao/60)+':0'+Math.round(this.allmiao%60)
+          else  return '0'+Math.floor(this.allmiao/60)+':'+Math.round(this.allmiao%60)
         },
         wayimg () {
             if(this.state == 1) return '/static/images/index/one.png'
@@ -82,12 +90,6 @@ export default {
             if(this.playing) return '/static/images/index/down.png'
             else if(!this.playing) return '/static/images/index/play2.png'
         },
-        tiaowidth () {
-            return 0+'rpx'
-        },
-        nowtime () {
-            return '0'
-        }
     },
     components:{
         'circle-t':circle
@@ -105,8 +107,39 @@ export default {
                 this.playing = true;
             }
         },
+        clClick (e) {
+            const rect = wx.getSystemInfoSync().windowWidth
+            this.offsetWidth = e.pageX - (rect-275)/2
+            this.nowmiao = this.allmiao*(this.offsetWidth/275)
+            const miao = Math.floor(this.nowmiao)
+            this.audioCtx.seek(miao)
+        },
+        clstart (e) {
+            this.touch.initiated = true
+            const rect = wx.getSystemInfoSync().windowWidth
+            this.touch.setWidth = (rect-275)/2
+            this.touch.startX = e.touches[0].pageX 
+            this.touch.time = this.nowmiao
+        },
+        clmove (e) {
+            if(!this.touch.initiated) return;
+            const movex = e.touches[0].pageX - this.touch.startX
+            if(e.touches[0].pageX>=(this.touch.setWidth+275)) {this.nowmiao =this.allmiao }
+            else if(e.touches[0].pageX<=this.touch.setWidth) {this.nowmiao = 0;}
+            else {this.nowmiao = this.touch.time+this.allmiao*movex/275}
+            // console.log(this.nowmiao)
+            // console.log(movex)
+        },
+        clend (e) {
+            this.touch.initiated = false
+            const miao = Math.floor(this.nowmiao)
+            this.audioCtx.seek(miao)
+        }
     },
     mounted(){
+        wx.showLoading({
+            title: '加载中'
+        })
         let options = this.$root.$mp.query;
         if(options.name == 'undefined'){
         fly
@@ -141,8 +174,9 @@ export default {
         this.audioCtx.onTimeUpdate(()=>{
             this.nowmiao = this.audioCtx.currentTime
         })
-        
+
         })
+        .then(wx.hideLoading())
         .catch(e => {
           console.log(e);
         }); 
@@ -196,7 +230,7 @@ export default {
 .bigfoot
     position fixed
     width 100%
-    height 200rpx
+    height 230rpx
     bottom 50rpx
 
 .bigtiao
@@ -208,16 +242,21 @@ export default {
     font-size 23rpx
     font-weight 300
     color #fff
-.tiao
-    margin-left 15rpx
+.notime
     margin-right 15rpx
-    width 550rpx
+.alltime
+    margin-left 15rpx
+.tiao
+    border-radius 25rpx
+    width 275px
     height 8rpx
     background #ADAAA8
     position relative
+    font-size 0
     .tiaotop
         height 8rpx
         background #d44439
+        border-radius 25rpx
     .cl
         position absolute
         top -9rpx
@@ -228,15 +267,17 @@ export default {
         width 35rpx
         .cl-mid
            top 17rpx
-           left 14rpx
+           left 10rpx
            box-sizing border-box
            width 30rpx
            height 30rpx
            border-radius 50%
            background #d44439
            border 5px solid #f1f1f1 
+           z-index 10
 
 .foot
+    margin-top 30rpx
     width 100%
     height 150rpx
     display flex
@@ -244,8 +285,8 @@ export default {
     align-items center
 
 .two,.four,.left2,.right2
-        width 90rpx
-        height 90rpx
+        width 80rpx
+        height 80rpx
 
 .one,.left
         width 60rpx
@@ -256,8 +297,8 @@ export default {
         height 50rpx
 
 .three,.midd
-        width 110rpx
-        height 110rpx
+        width 90rpx
+        height 90rpx
 
 
 </style>
